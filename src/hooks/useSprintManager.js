@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import dayjs from "dayjs";
 import {
   getActiveSprint,
@@ -15,11 +15,7 @@ export const useSprintManager = () => {
   const [completedSprints, setCompletedSprints] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = () => {
+  const loadData = useCallback(() => {
     setLoading(true);
     const active = getActiveSprint();
     const completed = getCompletedSprints();
@@ -27,7 +23,12 @@ export const useSprintManager = () => {
     setActiveSprintState(active);
     setCompletedSprints(completed);
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    loadData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Remove loadData dependency to prevent infinite loop
 
   const createSprint = (sprintData) => {
     const newSprint = {

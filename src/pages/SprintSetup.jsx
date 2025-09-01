@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   Container,
   Paper,
@@ -18,32 +18,32 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions
-} from '@mui/material';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { Add, Delete, PlayArrow } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { useSprintManager } from '../hooks/useSprintManager';
-import dayjs from 'dayjs';
+  DialogActions,
+} from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Add, Delete, PlayArrow } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import { useSprintManager } from "../hooks/useSprintManager";
+import dayjs from "dayjs";
 
 const SprintSetup = () => {
   const navigate = useNavigate();
   const { activeSprint, createSprint } = useSprintManager();
-  
-  const [sprintName, setSprintName] = useState('');
+
+  const [sprintName, setSprintName] = useState("");
   const [startDate, setStartDate] = useState(dayjs());
   const [duration, setDuration] = useState(7);
   const [goals, setGoals] = useState([]);
   const [showWarning, setShowWarning] = useState(false);
-  
+
   // New goal form
   const [newGoal, setNewGoal] = useState({
-    description: '',
-    estimatedHours: '',
-    priority: 'Medium'
+    description: "",
+    estimatedHours: "",
+    priority: "Medium",
   });
 
-  const endDate = startDate.add(duration - 1, 'day');
+  const endDate = startDate.add(duration - 1, "day");
 
   const handleAddGoal = () => {
     if (newGoal.description.trim() && newGoal.estimatedHours) {
@@ -54,19 +54,19 @@ const SprintSetup = () => {
           ...newGoal,
           estimatedHours: parseFloat(newGoal.estimatedHours),
           completed: false,
-          actualHours: 0
-        }
+          actualHours: 0,
+        },
       ]);
       setNewGoal({
-        description: '',
-        estimatedHours: '',
-        priority: 'Medium'
+        description: "",
+        estimatedHours: "",
+        priority: "Medium",
       });
     }
   };
 
   const handleRemoveGoal = (goalId) => {
-    setGoals(goals.filter(goal => goal.id !== goalId));
+    setGoals(goals.filter((goal) => goal.id !== goalId));
   };
 
   const handleStartSprint = () => {
@@ -74,9 +74,9 @@ const SprintSetup = () => {
       setShowWarning(true);
       return;
     }
-    
+
     if (!sprintName.trim() || goals.length === 0) {
-      alert('Please provide a sprint name and at least one goal.');
+      alert("Please provide a sprint name and at least one goal.");
       return;
     }
 
@@ -85,11 +85,11 @@ const SprintSetup = () => {
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
       duration,
-      goals
+      goals,
     });
 
     if (newSprint) {
-      navigate('/');
+      navigate("/");
     }
   };
 
@@ -101,11 +101,11 @@ const SprintSetup = () => {
       startDate: startDate.toISOString(),
       endDate: endDate.toISOString(),
       duration,
-      goals
+      goals,
     });
 
     if (newSprint) {
-      navigate('/');
+      navigate("/");
     }
   };
 
@@ -115,11 +115,11 @@ const SprintSetup = () => {
         <Typography variant="h4" gutterBottom>
           Create New Sprint 🚀
         </Typography>
-        
+
         {activeSprint && (
           <Alert severity="warning" sx={{ mb: 3 }}>
-            You already have an active sprint "{activeSprint.name}". 
-            Starting a new sprint will replace the current one.
+            You already have an active sprint "{activeSprint.name}". Starting a
+            new sprint will replace the current one.
           </Alert>
         )}
 
@@ -130,7 +130,7 @@ const SprintSetup = () => {
               Sprint Details
             </Typography>
           </Grid>
-          
+
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -141,7 +141,7 @@ const SprintSetup = () => {
               required
             />
           </Grid>
-          
+
           <Grid item xs={12} sm={6}>
             <DatePicker
               label="Start Date"
@@ -150,21 +150,26 @@ const SprintSetup = () => {
               renderInput={(params) => <TextField {...params} fullWidth />}
             />
           </Grid>
-          
+
           <Grid item xs={12} sm={6}>
             <TextField
               fullWidth
               label="Duration (days)"
               type="number"
-              value={duration}
-              onChange={(e) => setDuration(parseInt(e.target.value) || 7)}
+              value={duration === 0 ? "" : duration}
+              onChange={(e) =>
+                setDuration(
+                  e.target.value === "" ? 7 : parseInt(e.target.value) || 7
+                )
+              }
               inputProps={{ min: 1, max: 14 }}
+              placeholder="7"
             />
           </Grid>
-          
+
           <Grid item xs={12}>
             <Typography variant="body2" color="text.secondary">
-              End Date: {endDate.format('MMMM D, YYYY')}
+              End Date: {endDate.format("MMMM D, YYYY")}
             </Typography>
           </Grid>
 
@@ -182,36 +187,46 @@ const SprintSetup = () => {
                 <Typography variant="subtitle1" gutterBottom>
                   Add New Goal
                 </Typography>
-                
+
                 <Grid container spacing={2} alignItems="center">
                   <Grid item xs={12} sm={5}>
                     <TextField
                       fullWidth
                       label="Goal Description"
                       value={newGoal.description}
-                      onChange={(e) => setNewGoal({ ...newGoal, description: e.target.value })}
+                      onChange={(e) =>
+                        setNewGoal({ ...newGoal, description: e.target.value })
+                      }
                       placeholder="e.g., Finish Math Assignment 3"
                     />
                   </Grid>
-                  
+
                   <Grid item xs={6} sm={2}>
                     <TextField
                       fullWidth
                       label="Hours"
                       type="number"
                       value={newGoal.estimatedHours}
-                      onChange={(e) => setNewGoal({ ...newGoal, estimatedHours: e.target.value })}
+                      onChange={(e) =>
+                        setNewGoal({
+                          ...newGoal,
+                          estimatedHours: e.target.value,
+                        })
+                      }
                       inputProps={{ min: 0.5, step: 0.5 }}
+                      placeholder="0.5"
                     />
                   </Grid>
-                  
+
                   <Grid item xs={6} sm={3}>
                     <FormControl fullWidth>
                       <InputLabel>Priority</InputLabel>
                       <Select
                         value={newGoal.priority}
                         label="Priority"
-                        onChange={(e) => setNewGoal({ ...newGoal, priority: e.target.value })}
+                        onChange={(e) =>
+                          setNewGoal({ ...newGoal, priority: e.target.value })
+                        }
                       >
                         <MenuItem value="High">High</MenuItem>
                         <MenuItem value="Medium">Medium</MenuItem>
@@ -219,14 +234,16 @@ const SprintSetup = () => {
                       </Select>
                     </FormControl>
                   </Grid>
-                  
+
                   <Grid item xs={12} sm={2}>
                     <Button
                       fullWidth
                       variant="contained"
                       startIcon={<Add />}
                       onClick={handleAddGoal}
-                      disabled={!newGoal.description.trim() || !newGoal.estimatedHours}
+                      disabled={
+                        !newGoal.description.trim() || !newGoal.estimatedHours
+                      }
                     >
                       Add
                     </Button>
@@ -242,11 +259,15 @@ const SprintSetup = () => {
               <Typography variant="subtitle1" gutterBottom>
                 Sprint Goals ({goals.length})
               </Typography>
-              
+
               {goals.map((goal) => (
                 <Card key={goal.id} variant="outlined" sx={{ mb: 1 }}>
                   <CardContent sx={{ py: 2 }}>
-                    <Box display="flex" justifyContent="between" alignItems="center">
+                    <Box
+                      display="flex"
+                      justifyContent="between"
+                      alignItems="center"
+                    >
                       <Box flex={1}>
                         <Typography variant="body1">
                           {goal.description}
@@ -255,9 +276,9 @@ const SprintSetup = () => {
                           {goal.estimatedHours}h • {goal.priority} Priority
                         </Typography>
                       </Box>
-                      
-                      <IconButton 
-                        color="error" 
+
+                      <IconButton
+                        color="error"
                         onClick={() => handleRemoveGoal(goal.id)}
                         size="small"
                       >
@@ -267,23 +288,26 @@ const SprintSetup = () => {
                   </CardContent>
                 </Card>
               ))}
-              
+
               <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                Total estimated hours: {goals.reduce((sum, goal) => sum + goal.estimatedHours, 0)}h
+                Total estimated hours:{" "}
+                {goals.reduce((sum, goal) => sum + goal.estimatedHours, 0)}h
               </Typography>
             </Grid>
           )}
 
           {/* Start Sprint Button */}
           <Grid item xs={12}>
-            <Box display="flex" justifyContent="space-between" alignItems="center" sx={{ mt: 3 }}>
-              <Button
-                variant="outlined"
-                onClick={() => navigate('/')}
-              >
+            <Box
+              display="flex"
+              justifyContent="space-between"
+              alignItems="center"
+              sx={{ mt: 3 }}
+            >
+              <Button variant="outlined" onClick={() => navigate("/")}>
                 Cancel
               </Button>
-              
+
               <Button
                 variant="contained"
                 size="large"
@@ -303,13 +327,18 @@ const SprintSetup = () => {
         <DialogTitle>Replace Active Sprint?</DialogTitle>
         <DialogContent>
           <Typography>
-            You already have an active sprint running. Starting a new sprint will replace 
-            the current one and you'll lose your current progress. Are you sure you want to continue?
+            You already have an active sprint running. Starting a new sprint
+            will replace the current one and you'll lose your current progress.
+            Are you sure you want to continue?
           </Typography>
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setShowWarning(false)}>Cancel</Button>
-          <Button onClick={handleForceStart} variant="contained" color="warning">
+          <Button
+            onClick={handleForceStart}
+            variant="contained"
+            color="warning"
+          >
             Replace Sprint
           </Button>
         </DialogActions>

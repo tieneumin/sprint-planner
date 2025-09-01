@@ -11,6 +11,7 @@ import SprintSetup from "./pages/SprintSetup";
 import DailyUpdate from "./pages/DailyUpdate";
 import SprintReview from "./pages/SprintReview";
 import History from "./pages/History";
+import NavigationTest from "./components/NavigationTest";
 
 const theme = createTheme({
   palette: {
@@ -179,6 +180,7 @@ function App() {
                 <Route path="/daily" element={<DailyUpdate />} />
                 <Route path="/sprint/review" element={<SprintReview />} />
                 <Route path="/history" element={<History />} />
+                <Route path="/test" element={<NavigationTest />} />
               </Routes>
             </Box>
           </Box>
