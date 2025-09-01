@@ -5,12 +5,14 @@ A single-user productivity application that applies agile sprint methodology to 
 ## 🚀 Features
 
 ### Sprint Setup (Weekly Planning)
+
 - Create new weekly sprints with clear goals
 - Set sprint duration, start/end dates
 - Add goals with estimated hours and priority levels
 - Warning system for active sprints
 
 ### Daily Standups (Progress Tracking)
+
 - Daily check-in system with progress tracking
 - Log hours worked on each goal
 - Mark goals as completed
@@ -18,6 +20,7 @@ A single-user productivity application that applies agile sprint methodology to 
 - Add daily plans and notes
 
 ### Sprint Review (Weekly Review)
+
 - End sprint with comprehensive review
 - Mark final status of each goal (Completed/Partial/Not Done)
 - Sprint reflection with structured questions
@@ -25,6 +28,7 @@ A single-user productivity application that applies agile sprint methodology to 
 - Track estimated vs actual hours
 
 ### History & Analytics
+
 - View all completed sprints
 - Overall statistics and completion rates
 - Detailed goal tracking and progress
@@ -74,6 +78,7 @@ src/
 ## 📱 Usage Guide
 
 ### 1. Creating Your First Sprint
+
 1. Click "Create New Sprint" on the dashboard
 2. Enter sprint name (e.g., "Midterm Week")
 3. Set start date and duration (defaults to 7 days)
@@ -81,6 +86,7 @@ src/
 5. Click "Start Sprint" to begin
 
 ### 2. Daily Progress Tracking
+
 1. Click "Daily Check-in" from the dashboard
 2. Update progress on each goal:
    - Mark as completed if finished
@@ -91,6 +97,7 @@ src/
 5. Save your check-in
 
 ### 3. Completing a Sprint
+
 1. Click "Sprint Review" when ready to end
 2. Mark final status for each goal
 3. Answer reflection questions:
@@ -101,6 +108,7 @@ src/
 5. Click "Complete Sprint"
 
 ### 4. Viewing History
+
 - Access completed sprints in the History page
 - View overall statistics and completion rates
 - Expand individual sprints to see detailed results
@@ -143,6 +151,7 @@ src/
 ## 📊 Data Storage
 
 All data is stored locally in your browser using localStorage:
+
 - Active sprint information
 - Completed sprint history
 - Daily check-in records

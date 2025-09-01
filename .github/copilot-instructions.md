@@ -5,11 +5,13 @@
 This is a React + Vite project for a student productivity application using agile sprint methodology.
 
 ## Project Overview
+
 - **Purpose**: Weekly sprint planner for college students
 - **Tech Stack**: React 19, Vite, Material-UI, React Router, Local Storage
 - **Architecture**: Single-user application with no backend
 
 ## Code Style Guidelines
+
 - Use functional components with hooks
 - Prefer named exports for components
 - Use Material-UI components consistently
@@ -18,18 +20,21 @@ This is a React + Vite project for a student productivity application using agil
 - Store all data in localStorage
 
 ## Key Components
+
 - `useSprintManager` hook: Central state management for sprints
 - `localStorage.js`: Data persistence utilities
 - All pages use Material-UI Container with consistent styling
 - Navigation handled by React Router
 
 ## Development Notes
+
 - Development server runs on port 5175 (or next available)
 - All JSX files must have .jsx extension
 - MUI components require ThemeProvider and CssBaseline
 - Date pickers require LocalizationProvider wrapper
 
 ## Feature Implementation
+
 - Sprint creation with goals, priorities, and estimated hours
 - Daily check-ins with progress tracking
 - Sprint reviews with reflections and ratings
@@ -37,7 +42,7 @@ This is a React + Vite project for a student productivity application using agil
 
 - [x] Verify that the copilot-instructions.md file in the .github directory is created.
 - [x] Clarify Project Requirements
-- [x] Scaffold the Project  
+- [x] Scaffold the Project
 - [x] Customize the Project
 - [x] Install Required Extensions
 - [x] Compile the Project
